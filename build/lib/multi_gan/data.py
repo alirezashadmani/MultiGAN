@@ -67,7 +67,7 @@ def make_25gmm():
     return TensorDataset(data), sampler
 
 
-def make_image_data(dataset, root=expanduser('/content/drive/MyDrive/multiGan/data/')):
+def make_image_data(dataset, root=expanduser('~/data/multi_gan')):
     if dataset == 'cifar10':
         dataset = dset.CIFAR10(root=root, download=True,
                                transform=transforms.Compose([
@@ -93,8 +93,7 @@ def make_image_data(dataset, root=expanduser('/content/drive/MyDrive/multiGan/da
                              ]))
         stat_path = join(root, 'stats_mnist.npz')
     elif dataset == 'multimnist':
-        root='/content/drive/MyDrive/GanModel/multiGan/data/games_rl/multi_gan'
-        data_dir = join(root, 'mnist')
+        data_dir = join(root, 'multimnist')
         images = torch.load(join(data_dir, 'images.pkl'))
         labels = torch.load(join(data_dir, 'labels.pkl'))
         dataset = TensorDataset(images, labels)

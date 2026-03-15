@@ -15,11 +15,11 @@ def infinite_iter(iterable):
 
 n_samples = 50000
 
-data_dir = expanduser('~/data/games_rl/multi_gan/mnist')
+data_dir = expanduser('/content/drive/MyDrive/GanModel/multiGan/data/games_rl/multi_gan/mnist')
 if not os.path.exists(data_dir):
     os.makedirs(data_dir)
 
-dataset = datasets.MNIST(root=expanduser('~/data/games_rl'), download=True,
+dataset = datasets.MNIST(root=expanduser('/content/drive/MyDrive/GanModel/multiGan/data/games_rl'), download=True,
                          transform=transforms.Compose([
                              transforms.Resize((28, 28)),
                              transforms.ToTensor(),

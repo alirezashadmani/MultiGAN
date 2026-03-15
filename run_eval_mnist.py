@@ -23,8 +23,8 @@ from multi_gan.training import Scheduler
 matplotlib.rcParams['backend'] = 'pdf'
 rc('text', usetex=True)
 
-output_dirs = [expanduser('~/output/multi_gan/cifar10'), expanduser('~/output/multi_gan/cifar10_final'),
-               expanduser('~/output/multi_gan/cifar10_nplayer')]
+output_dirs = [expanduser('/content/drive/MyDrive/multiGan/data/output/multi_gan/cifar10'), expanduser('/content/drive/MyDrive/multiGan/data/output/multi_gan/cifar10_final'),
+               expanduser('/content/drive/MyDrive/multiGan/data/output/multi_gan/cifar10_nplayer')]
 
 exp = Experiment('multi_gan')
 exp_dir = expanduser('~/output/multi_gan')

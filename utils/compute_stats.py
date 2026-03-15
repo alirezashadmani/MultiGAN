@@ -15,7 +15,7 @@ def compute_train_stats(data_source):
 
     cifar10, path = make_image_data(data_source)
 
-    output_dir = expanduser('~/data/temp')
+    output_dir = expanduser('/content/drive/MyDrive/GanModel/multiGan/data/temp')
     paths = save_dataset_to_folder(cifar10, output_dir)
 
     model = InceptionV3([3, 4]).to('cuda:0')
@@ -46,8 +46,8 @@ def compare_with_train():
     cifar10_test, _ = make_image_data('cifar10_test')
     cifar10, path = make_image_data('cifar10')
 
-    output_dir = expanduser('~/data/temp')
-    stat_path = expanduser('~/data/multi_gan/cifar10/stats.npz')
+    output_dir = expanduser('/content/drive/MyDrive/GanModel/multiGan/data/temp')
+    stat_path = expanduser('/content/drive/MyDrive/GanModel/multiGan/data/multi_gan/cifar10/stats.npz')
     save_dataset_to_folder(cifar10, output_dir)
     fid_value, is_score = calculate_fid_given_paths([output_dir, stat_path], batch_size=50, device=True, dims=2048)
     print(fid_value, is_score)

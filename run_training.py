@@ -25,12 +25,12 @@ from torch.utils.tensorboard import SummaryWriter
 
 exp = Experiment('multi_gan')
 
-exp_dir = expanduser('~/output/multi_gan')
+exp_dir = os.path.join(os.getcwd(), 'data', 'output', 'multi_gan')
 if not os.path.exists(exp_dir):
     os.makedirs(exp_dir)
 
 
-@exp.config
+@exp.named_config
 def synthetic():
     data_type = 'synthetic'
     data_source = '8gmm'
@@ -113,10 +113,10 @@ def cifar():
     output_dir = None
 
 
-@exp.named_config
+@exp.config
 def mnist():
     data_type = 'image'
-    data_source = 'mnist'
+    data_source = 'multimnist'
     n_generators = 3
     n_discriminators = 3
 
@@ -126,7 +126,7 @@ def mnist():
 
     loss_type = 'wgan-gp'
     device = 'cuda:0'
-    n_iter = int(5e5)
+    n_iter = int(5e2)
 
     noise_dim = 128  # For image data
 
@@ -146,8 +146,8 @@ def mnist():
     seed = 0
 
     eval_fid = True
-    print_every = 10000
-    eval_every = 10000
+    print_every = 100 #10000
+    eval_every = 100 #10000
     eval_device = 'cuda:0'
 
     restart = True
@@ -289,8 +289,7 @@ def train(n_generators, n_discriminators, noise_dim, ngf, ndf, grad_penalty, sam
                     losses[group] = checkpoint['past_losses'][group]
                     counts[group] = checkpoint['count_losses'][group]
                 scheduler = bundle['scheduler']
-                break
-
+                break 
     while n_gen_upd < n_iter:
         for group, these_players in players.items():
             for P, player in these_players.items():
@@ -372,7 +371,7 @@ def train(n_generators, n_discriminators, noise_dim, ngf, ndf, grad_penalty, sam
 
                 losses[group][:] = 0
                 counts[group][:] = 0
-
+        #print('\n..........\n________\n',next_print_step)
         if n_gen_upd >= next_print_step:
             next_print_step += print_every
             metrics = {'steps/n_gen_upd': n_gen_upd,
@@ -439,11 +438,11 @@ def train(n_generators, n_discriminators, noise_dim, ngf, ndf, grad_penalty, sam
                                 dataset[bb:be, :].copy_(((players['G'][G](noise) + 1) / 2))
                             bb = be
                         dataset = TensorDataset(dataset)
-                        fid, is_m, is_std = calculate_fid_given_paths([dataset, stat_path], batch_size=50,
+                        fid = calculate_fid_given_paths([dataset, stat_path], batch_size=50,
                                                                       device=eval_device, dims=2048)
                         metrics['eval/fid'] = fid
-                        metrics['eval/is'] = is_m
-                        metrics['eval/is_std'] = is_std
+                      #  metrics['eval/is'] = is_m
+                       # metrics['eval/is_std'] = is_std
 
                 for key, value in metrics.items():
                     writer.add_scalar(key, value, n_gen_upd)

@@ -7,8 +7,8 @@ import pandas as pd
 import seaborn as sns
 from pandas.errors import EmptyDataError
 
-output_dirs = [expanduser('~/output/multi_gan/cifar10'), expanduser('~/output/multi_gan/cifar10_final'),
-               expanduser('~/output/multi_gan/cifar10_nplayer')]
+output_dirs = [expanduser('/content/drive/MyDrive/GanModel/multiGan/data/output/multi_gan/cifar10'), expanduser('/content/drive/MyDrive/GanModel/multiGan/data/output/multi_gan/cifar10_final'),
+               expanduser('/content/drive/MyDrive/GanModel/multiGan/data/output/multi_gan/cifar10_nplayer')]
 
 all_results = []
 for output_dir in output_dirs:
@@ -17,10 +17,10 @@ for output_dir in output_dirs:
         with open(join(exp_dir, '1', 'config.json'), 'r') as f:
             config = json.load(f)
         try:
-            results = pd.read_csv(join(exp_dir, 'results.csv'), usecols=[2, 3, 4], skiprows=2)
+            results = pd.read_csv(join(exp_dir, 'results.csv'), usecols=[2], skiprows=2)
         except EmptyDataError:
             continue
-        results.columns = ['fid', 'is', 'is_std']
+        results.columns = ['fid']
         sampling = config['sampling']
         if sampling == 'all' and config['fused_noise']:
             sampling += '_same_noise'
@@ -44,9 +44,9 @@ for output_dir in output_dirs:
                             fid=row['fid'],
                             seed=config['seed'],
                             lr=config['G_lr'],
-                            is_=row['is'],
+                         #   is_=row['is'],
                             exp=exp,
-                            is_std=row['is_std'],
+                         #   is_std=row['is_std'],
                             total_iter=iter,
                             iter_per_gen=iter / config['n_generators'],
                         ))

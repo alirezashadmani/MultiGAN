@@ -211,8 +211,9 @@ def _compute_statistics_of_path(path, model, batch_size, dims, device):
                                                      dims, device)
     elif path.endswith('.npz'):
         f = np.load(path)
+        #print('\n\n...................\n',f)
         m, s = f['mu'][:], f['sigma'][:]
-        prob = f['is_mean'], f['is_std']
+       # prob = f['is_mean'], f['is_std']
         f.close()
     else:
         path = pathlib.Path(path)
@@ -220,7 +221,7 @@ def _compute_statistics_of_path(path, model, batch_size, dims, device):
         m, s, prob = calculate_activation_statistics(files, model, batch_size,
                                                      dims, device)
 
-    return m, s, prob
+    return m, s#, prob
 
 
 def calculate_inception_score(prob, splits=10):
@@ -245,15 +246,19 @@ def calculate_fid_given_paths(paths, batch_size, device, dims):
     model = InceptionV3([block_idx, 4])
     model.to(device)
 
-    m1, s1, prob = _compute_statistics_of_path(paths[0], model, batch_size,
+    m1, s1 = _compute_statistics_of_path(paths[0], model, batch_size,
                                                dims, device)
-    if isinstance(prob, tuple):
+    '''   if isinstance(prob, tuple):
         is_mean, is_std = prob
     else:
         is_mean, is_std = calculate_inception_score(prob)
-
-    m2, s2, _ = _compute_statistics_of_path(paths[1], model, batch_size,
+'''
+    m2, s2 = _compute_statistics_of_path(paths[1], model, batch_size,
                                             dims, device)
     fid_value = calculate_frechet_distance(m1, s1, m2, s2)
 
-    return fid_value, is_mean, is_std
+    return fid_value#, is_mean, is_std
+
+
+
+

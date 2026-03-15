@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: multi-gan
+Version: 0.1.dev0
+Summary: MultiGAN
+Home-page: github.com/XXX/XXX
+Maintainer: XXX
+Maintainer-email: XXX
+License: MIT License
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved
+Classifier: Programming Language :: C
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development
+Classifier: Topic :: Scientific/Engineering
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS
+
+# multi_gan
+
+
