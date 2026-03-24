@@ -5,7 +5,7 @@ A structured Python package (`multi_gan`) for exploring Generative Adversarial N
 ## Overview
 This repository utilizes PyTorch to run modular experiments comparing standalone and multiple Generator/Discriminator couplings (Multi-GAN). Deep network variations like `GeneratorDCGAN28` and `DiscriminatorResNet32` are exposed dynamically via Sacred experiments depending on the dataset provided.
 
-## Architecture Refactoring
+## Architecture
 This project was initially coupled tightly to Google Colab environments via hardcoded outputs (e.g. `/content/drive/...`). It has been explicitly decoupled to establish dynamic local resolution, protecting execution flows across standalone PCs and generalized Cloud Virtual Machines.
 
 - **Removed `Run.ipynb`**: The Google environment orchestrator has been purged.
